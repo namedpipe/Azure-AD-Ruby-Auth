@@ -1,3 +1,8 @@
-<%= raw ap params %>
 
-<%= link_to "Login", :action => "login" %>
+<h1>Click below to login via Azure AD</h1>
+<h2><%= link_to "Login via Azure AD", :action => "login" %></h2>
+
+<div id="app-params">
+	<p>Development Details</p>
+	<pre><%= raw ap params %></pre>
+</div>

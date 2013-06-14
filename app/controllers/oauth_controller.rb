@@ -1,24 +1,32 @@
 class OauthController < ApplicationController
+	LOGIN_SITE = "https://login.windows.net"
+	CLIENT_ID = "557bfea1-b9c4-4dc8-abba-ea6487b03794"
+	TOKEN_URL = "/c74b27a6-3ccd-4910-8d48-ef28f5980aad/oauth2/token"
+	AUTH_URL = "/c74b27a6-3ccd-4910-8d48-ef28f5980aad/oauth2/authorize"
+	# KEYS
+	# api.haikutest.com key mnw7AfQCR9fKJXf0tuPlgUEqHNIWj15yDZOOfeJ942s=
+	# localhost:3000 key B6k1vSrXkU9C8CRsSVYL3E2GdRlk0Z7gZlaL/mSY1xo=
+	KEY = "mnw7AfQCR9fKJXf0tuPlgUEqHNIWj15yDZOOfeJ942s="
 
 	def index
 	end
 
 	def login
-		# api.haikutest.com key mnw7AfQCR9fKJXf0tuPlgUEqHNIWj15yDZOOfeJ942s=
-		# localhost:3000 key B6k1vSrXkU9C8CRsSVYL3E2GdRlk0Z7gZlaL/mSY1xo=
-		client = OAuth2::Client.new('557bfea1-b9c4-4dc8-abba-ea6487b03794', 'mnw7AfQCR9fKJXf0tuPlgUEqHNIWj15yDZOOfeJ942s=',  
-  		:site => 'https://login.windows.net', 
-  		:authorize_url => "/c74b27a6-3ccd-4910-8d48-ef28f5980aad/oauth2/authorize",
-  		:token_url => "/c74b27a6-3ccd-4910-8d48-ef28f5980aad/oauth2/token")
+		client = OAuth2::Client.new(CLIENT_ID, KEY,  
+  		:site => LOGIN_SITE, 
+  		:authorize_url => AUTH_URL,
+  		:token_url => TOKEN_URL)
 
 		login_url = client.auth_code.authorize_url(:redirect_uri => 'http://localhost:3000/consume', :resource => "http://localhost:3000")
 		redirect_to login_url
 
+		# Used for testing SAML login
 		#request = Onelogin::Saml::Authrequest.new
 		#redirect_to(request.create(saml_settings))
 	end
 
 	def consume
+		# Used for testing SAML login
 		#response          = Onelogin::Saml::Response.new(params[:SAMLResponse])
 		#response.settings = saml_settings
 		#if response.is_valid?
