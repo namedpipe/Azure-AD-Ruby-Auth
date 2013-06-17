@@ -1,1 +1,11 @@
-<%= raw ap params %>
+<% if @response %>
+	<h2>Response</h2>
+	<pre>
+	<%= raw @response.body %>
+	</pre>
+<% end %>
+
+<div id="app-params">
+	<p>Development Details</p>
+	<pre><%= raw ap params %></pre>
+</div>
